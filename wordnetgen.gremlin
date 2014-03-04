@@ -1,0 +1,12 @@
+// Gremlin script for loading wordnet in graphson format into Titan
+
+g.makeType().name("type").dataType(String.class).unique(Direction.OUT).makePropertyKey();
+g.makeType().name("name").dataType(String.class).indexed(Vertex.class).unique(Direction.OUT).makePropertyKey();
+g.makeType().name("wnName").dataType(String.class).indexed(Vertex.class).unique(Direction.BOTH).makePropertyKey();
+
+g.commit();
+
+g.loadGraphSON('wn.graphson');
+g.commit();
+
+// http://localhost:8182/graphs/graph/tp/gremlin?script=vx.count()&load=[vertices]
